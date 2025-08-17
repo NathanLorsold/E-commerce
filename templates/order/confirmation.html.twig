@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation de votre commande{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Merci pour votre commande !</h1>
+    <div class="card shadow-sm p-4">
+        <p><strong>Référence :</strong> {{ order.reference }}</p>
+        <p><strong>Date :</strong> {{ order.createdAt|date('d/m/Y à H:i') }}</p>
+        <p><strong>Montant total :</strong> {{ order.total }} €</p>
+        <p><strong>Statut :</strong> {{ order.status }}</p>
+    </div>
+
+    <a href="{{ path('account_orders') }}" class="btn btn-primary mt-4">Voir mes commandes</a>
+</div>
+{% endblock %}

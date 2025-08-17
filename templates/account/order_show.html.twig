@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande {{ order.reference }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2>Détails de la commande {{ order.reference }}</h2>
+    <p>Date : {{ order.createdAt|date('d/m/Y H:i') }}</p>
+    <p>Statut : <strong>{{ order.status }}</strong></p>
+    <p>Total : <strong>{{ order.total|number_format(2, ',', ' ') }} €</strong></p>
+
+    <h4>Produits :</h4>
+    <ul>
+        {% for item in order.orderItems %}
+            <li>
+                {{ item.product.productName }} — {{ item.quantity }} × {{ item.price|number_format(2, ',', ' ') }} €
+                = {{ item.total|number_format(2, ',', ' ') }} €
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('account_orders') }}" class="btn btn-secondary mt-3">← Retour</a>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement de la commande{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Paiement de votre commande</h1>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix unitaire</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set total = 0 %}
+            {% for id, item in cart %}
+                {% set total = total + (item.unitPrice * item.quantity) %}
+                <tr>
+                    <td>{{ item.productName }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.unitPrice }} €</td>
+                    <td>{{ item.unitPrice * item.quantity }} €</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h4 class="mt-3">Total à payer : {{ total }} €</h4>
+
+    <form action="{{ path('order_stripe_session') }}" method="POST">
+        <button type="submit" class="btn btn-success mt-4">Payer maintenant</button>
+    </form>
+</div>
+{% endblock %}

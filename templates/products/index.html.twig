@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}<h1>Nos produits</h1> {% endblock %}
+
+{% block body %}
+
+<div class="product-list">
+    {% for product in products %}
+        <div class="product-card">
+            <h3>{{ product.productName }}</h3>
+            <p>{{ product.description }}</p>
+
+            {# Affichage de l'image #}
+            {% if product.imageUrl %}
+                <img src="{{ product.imageUrl }}" alt="{{ product.productName }}" style="width: 200px; height: auto;">
+            {% else %}
+                <p><em>Pas d'image disponible</em></p>
+            {% endif %}
+
+            <p>Prix : {{ product.unitPrice }} €</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

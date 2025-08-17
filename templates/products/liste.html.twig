@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits de {{ sousCategorie.name }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>Produits de la sous-catégorie : {{ sousCategorie.name }}</h1>
+
+    {% if products is empty %}
+        <p>Aucun produit trouvé dans cette sous-catégorie.</p>
+    {% else %}
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        {% if product.imageUrl %}
+                            <img src="{{ product.imageUrl }}" class="card-img-top" alt="Image de {{ product.productName }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.productName }}</h5>
+                            <p class="card-text">{{ product.unitPrice }} €</p>
+                            <p class="text-muted small">{{ product.description|slice(0, 60) ~ '...' }}</p>
+
+                            {% if product.id %}
+                                <a href="{{ path('products_details', { id: product.id }) }}" class="btn btn-primary mt-2">
+                                    Voir les détails
+                                </a>
+                            {% else %}
+                                <p class="text-danger">ID manquant pour {{ product.productName }}</p>
+                            {% endif %}
+                            <a href="{{ path('cart_add', { id: product.id }) }}" class="btn btn-success btn-sm mt-2">
+                                🛒 Ajouter au panier
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-4 d-flex justify-content-center">
+            {{ knp_pagination_render(products) }}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

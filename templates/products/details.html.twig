@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de {{ product.id }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="row g-0">
+            {% if product.imageUrl %}
+                <div class="col-md-5">
+                    <img src="{{ product.imageUrl }}" alt="{{ product.id }}" class="img-fluid rounded-start">
+                </div>
+            {% endif %}
+
+            <div class="col-md-7">
+                <div class="card-body">
+                    <h3 class="card-title">{{ product.productName }}</h3>
+                    <p class="card-text"><strong>Description :</strong> {{ product.description }}</p>
+                    <p class="card-text"><strong>Prix :</strong> {{ product.unitPrice }} €</p>
+                    <p class="card-text"><strong>Stock :</strong> {{ product.unitsOnStock }}</p>
+                    <p class="card-text"><strong>Catégorie :</strong> {{ product.categories.name }}</p>
+
+                    <a href="{{ path('products_par_sous_categorie', { id: product.categories.id }) }}" class="btn btn-outline-secondary mt-3">
+                        ← Retour à la liste
+                    </a>
+                </div>
+                <a href="{{ path('cart_add', { id: product.id }) }}" class="btn btn-primary mt-3">
+                    <i class="bi bi-cart-plus"></i> Ajouter au panier
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ categories.name }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4">Catégorie : <span class="text-primary">{{ categories.name }}</span></h1>
+
+    {% if children is not empty %}
+        <div class="row">
+            {% for child in children %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ child.name }}</h5>
+
+                            {% if child.products|length > 0 %}
+                                <ul class="list-group list-group-flush">
+                                    {% for product in child.products %}
+                                        <li class="list-group-item">
+                                            <strong>{{ product.productName }}</strong><br>
+                                            {{ product.unitPrice }} €<br>
+                                            <small class="text-muted">{{ product.description|slice(0, 60) ~ '...' }}</small>
+                                        </li>
+                                    
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p class="text-muted mt-3">Aucun produit dans cette sous-catégorie.</p>
+                            {% endif %}
+
+                            <a href="{{ path('products_par_sous_categorie', {'id': child.id}) }}" class="btn btn-outline-primary mt-3">
+    Voir tous les produits
+</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-warning">Cette catégorie n’a pas de sous-catégories.</div>
+    {% endif %}
+</div>
+{% endblock %}

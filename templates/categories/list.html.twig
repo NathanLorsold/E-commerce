@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits de la catégories {{item.name}}!{% endblock %}
+
+{% block body %}
+<main class="container">
+    <section class="row">
+        <div class="col-12">
+            <h1>Liste des produits de la catégorie {{item.name}} </h1>
+        </div>
+        {% {% for item in item.products %}
+                {{product.name}}
+        {% endfor %} %}
+    </section>
+</main>
+{% endblock %}
